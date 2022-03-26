@@ -1,0 +1,18 @@
+name: 'Unity Package Manager Tools'
+description: 'An action that will append a snapshot tag and a timestamp to the package version.'
+branding:
+  icon: activity
+  color: orange
+inputs:
+  dir:
+    description: 'The directory in which to look for package.json file. Example, "path/to/package".'
+    required: true
+outputs:
+  updated-manifest:
+    description: 'A boolean value, indicating whether or not a unity package manifest was found and updated as a result of running this action.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - '-d'
+    - ${{ inputs.dir }}
