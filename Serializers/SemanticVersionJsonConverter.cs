@@ -27,7 +27,7 @@ public class SemanticVersionJsonConverter : JsonConverter<SemanticVersion>
     {
         var semVer = $"{semanticVersion.Major}.{semanticVersion.Minor}.{semanticVersion.Patch}";
         var prereleaseVer = semanticVersion.PrereleaseVersion != null ? $"-{semanticVersion.PrereleaseVersion}" : "";
-        var buildMetadata = semanticVersion.BuildMetadata != null ?  $"_{semanticVersion.BuildMetadata}" : "";
+        var buildMetadata = semanticVersion.BuildMetadata != null ?  $".{semanticVersion.BuildMetadata}" : "";
         writer.WriteStringValue($"{semVer}{prereleaseVer}{buildMetadata}");
     }
 
@@ -58,7 +58,7 @@ public class SemanticVersionJsonConverter : JsonConverter<SemanticVersion>
 
     private static string? TryGetBuildMetadata(string? body)
     {
-        if (body == null || !body.Contains('_')) return null;
-        return body.Substring(body.IndexOf('_'));
+        if (body == null || body.Split('.').Length < 4) return null;
+        return body.Substring(body.LastIndexOf('.'));
     }
 }
