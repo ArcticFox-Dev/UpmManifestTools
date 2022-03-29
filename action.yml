@@ -7,6 +7,9 @@ inputs:
   dir:
     description: 'The directory in which to look for package.json file. Example, "path/to/package".'
     required: true
+  action:
+    description: 'The action to perform on the version. Allowed options: snapshot, patch, minor, major'
+    required: true
 outputs:
   updated-manifest:
     description: 'A boolean value, indicating whether or not a unity package manifest was found and updated as a result of running this action.'
@@ -16,3 +19,5 @@ runs:
   args:
     - '-d'
     - ${{ inputs.dir }}
+    - '-a'
+    - ${{ inputs.action }}
