@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
@@ -37,6 +36,7 @@ public class PackageRewriter
         var manifest = GetManifest(path, logger, out var options);
 
         manifest.Version.Minor += 1;
+        manifest.Version.Patch = 0;
         manifest.Version.PrereleaseVersion = null;
         manifest.Version.BuildMetadata = null;
 
@@ -49,6 +49,8 @@ public class PackageRewriter
         var manifest = GetManifest(path, logger, out var options);
 
         manifest.Version.Major += 1;
+        manifest.Version.Minor = 0;
+        manifest.Version.Patch = 0;
         manifest.Version.PrereleaseVersion = null;
         manifest.Version.BuildMetadata = null;
 
